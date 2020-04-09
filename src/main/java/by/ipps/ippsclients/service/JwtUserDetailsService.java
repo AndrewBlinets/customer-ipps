@@ -44,7 +44,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 
   private List<String> getPrivileges(List<String> roles) {
     List<String> privileges = new ArrayList<>();
-    for (String role : roles) {
+    if(roles != null)
+      for (String role : roles) {
       privileges.add(role);
     }
     return privileges;

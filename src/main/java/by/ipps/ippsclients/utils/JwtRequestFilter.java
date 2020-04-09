@@ -1,6 +1,7 @@
 package by.ipps.ippsclients.utils;
 
 import by.ipps.ippsclients.entity.Customer;
+import by.ipps.ippsclients.entity.CustomerAuth;
 import by.ipps.ippsclients.resttemplate.CustomerRestTemplate;
 import by.ipps.ippsclients.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -29,17 +30,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
   private final JwtUserDetailsService jwtUserDetailsService;
   private final JwtTokenUtil jwtTokenUtil;
-  private final CustomerRestTemplate restRequestToDao;
+  private final RestRequestToDao requestToDao;
   @Autowired
   private AuthenticationManager authenticationManager;
 
   public JwtRequestFilter(
       JwtUserDetailsService jwtUserDetailsService,
       JwtTokenUtil jwtTokenUtil,
-      CustomerRestTemplate restRequestToDao) {
+      RestRequestToDao restRequestToDao) {
     this.jwtUserDetailsService = jwtUserDetailsService;
     this.jwtTokenUtil = jwtTokenUtil;
-    this.restRequestToDao = restRequestToDao;
+    this.requestToDao = restRequestToDao;
   }
 
   @Override
@@ -62,7 +63,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         System.out.println("JWT Token has expired");
       }
       if (username != null) {
-        Customer customer = restRequestToDao.getUserByLogin(username);
+        CustomerAuth customer = requestToDao.getUserByLogin(username);
         if (jwtTokenUtil.validateToken(jwtToken, customer)) {
           UserDetails userDetails =
               new org.springframework.security.core.userdetails.User(
@@ -98,7 +99,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
   private List<String> getPrivileges(List<String> roles) {
     List<String> privileges = new ArrayList<>();
-    for (String role : roles) {
+    if(roles != null)
+      for (String role : roles) {
       privileges.add(role);
     }
     return privileges;

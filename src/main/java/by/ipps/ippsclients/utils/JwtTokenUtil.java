@@ -60,7 +60,7 @@ public class JwtTokenUtil implements Serializable {
   }
 
   // validate token
-  public Boolean validateToken(String token, Customer userDetails) {
+  public Boolean validateToken(String token, CustomerAuth userDetails) {
     final String username = getUsernameFromToken(token);
     final Date dateChangePasword = getDateChangePassword(token);
     return (username.equals(userDetails.getLogin())

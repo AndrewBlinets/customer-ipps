@@ -1,24 +1,30 @@
 package by.ipps.ippsclients.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer extends BaseEntity implements Serializable {
-    private String login;
-    private String hashPassword;
+//    private String login;
+//    private String hashPassword;
     private String name;
+    protected String patronicName;
+    protected String surName;
     private List<String> roles;
     private String email;
     private boolean enabled;
     private boolean block;
-    private Date dateLastChangePassword;
+    private Org org;
 
     public Customer(String name, List<String> roles) {
         this.name = name;
