@@ -77,4 +77,9 @@ public class LoginController {
             return rest.getUserByLogin(username);
         } else return null;
     }
+
+    @GetMapping(value = "/logout")
+    public ResponseEntity<HttpStatus> logout(){
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

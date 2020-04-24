@@ -25,6 +25,7 @@ public class Customer extends BaseEntity implements Serializable {
     private boolean enabled;
     private boolean block;
     private Org org;
+    List<ProjectDtoForCustomer> projects;
 
     public Customer(String name, List<String> roles) {
         this.name = name;
