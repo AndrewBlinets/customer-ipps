@@ -18,7 +18,7 @@ public class NewsRestTemplateImp extends AbstractBaseEntityRestTemplate<News>
   public ResponseEntity<CustomPage<News>> findByIdProject(
       long project, int page, int size, String sort) {
     UriComponentsBuilder builder =
-        UriComponentsBuilder.fromHttpUrl(URL_SERVER + "news/byIdProjectPage/" + project)
+        UriComponentsBuilder.fromHttpUrl(URL_SERVER + "newForCustomer/byIdProjectPage/" + project)
             .queryParam("page", String.valueOf(page))
             .queryParam("size", String.valueOf(size))
             .queryParam("sort", sort);
@@ -30,7 +30,7 @@ public class NewsRestTemplateImp extends AbstractBaseEntityRestTemplate<News>
   @Override
   public ResponseEntity<List<News>> findByIdProject(long project) {
       UriComponentsBuilder builder =
-          UriComponentsBuilder.fromHttpUrl(URL_SERVER + "news/byIdProject/" + project);
+          UriComponentsBuilder.fromHttpUrl(URL_SERVER + "newForCustomer/byIdProject/" + project);
       final ParameterizedTypeReference<List<News>> responseType =
           new ParameterizedTypeReference<List<News>>() {};
       return restTemplate.exchange(builder.toUriString(), HttpMethod.GET, null, responseType);

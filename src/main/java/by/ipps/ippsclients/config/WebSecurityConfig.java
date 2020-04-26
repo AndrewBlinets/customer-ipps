@@ -66,19 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll()
         .antMatchers("/getInfo")
         .permitAll()
-        .antMatchers("/department/**")
-        .hasAuthority("super-admin")
-        .antMatchers("/company/**")
-        .hasAuthority("super-admin")
-        .antMatchers("/news/**")
-        .hasAuthority("super-admin")
-        //                .antMatchers("/department").hasRole("super-admin")
-        //                .antMatchers("/hello").hasRole("superAdmin")
         .and()
-        // all other requests need to be authenticated
-        //                        anyRequest().authenticated().and().
-        // make sure we use stateless session; session won't be used to
-        // store user's state.
         .exceptionHandling()
         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
         .and()

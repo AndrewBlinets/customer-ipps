@@ -78,7 +78,7 @@ public class LoginController {
         } else return null;
     }
 
-    @GetMapping(value = "/logout")
+    @GetMapping(value = "/logoutCustomer")
     public ResponseEntity<HttpStatus> logout(){
         return new ResponseEntity<>(HttpStatus.OK);
     }
