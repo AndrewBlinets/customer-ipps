@@ -1,6 +1,7 @@
 package by.ipps.ippsclients.resttemplate.base;
 
 import by.ipps.ippsclients.custom.CustomPage;
+import by.ipps.ippsclients.resttemplate.base.BaseEntityRestTemplate;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,18 +23,14 @@ public abstract class AbstractBaseEntityRestTemplate<E> implements BaseEntityRes
   protected String URL_SERVER;
   // = "http://localhost:8082/dao/";// local home
   //    protected static final String URL_SERVER = "http://localhost:8080/dao/";// local home
-  private static final String LANGUAGE = "language";
-  private static final String SECTION = "section";
-  private static final String DEPARTAMENT = "department";
 
   @Autowired protected RestTemplate restTemplate;
 
   @Override
   public ResponseEntity<E> findById(
-      Long id, String url, String language, String section, String department) {
+      Long id, String url, String language, String section, String department, int idCustomer) {
     try {
       UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_SERVER + url + "/" + id);
-      setSectionAndDeportamentAndLanguage(language, section, department, builder);
       return restTemplate.exchange(
           builder.toUriString(), HttpMethod.GET, null, new ParameterizedTypeReference<E>() {});
     } catch (org.springframework.web.client.HttpClientErrorException exception) {
@@ -54,14 +51,13 @@ public abstract class AbstractBaseEntityRestTemplate<E> implements BaseEntityRes
       String language,
       String url,
       String section,
-      String department) {
+      String department, int idCustomer) {
     try {
       UriComponentsBuilder builder =
           UriComponentsBuilder.fromHttpUrl(URL_SERVER + url)
               .queryParam("page", String.valueOf(page))
               .queryParam("size", String.valueOf(size))
               .queryParam("sort", sort);
-      setSectionAndDeportamentAndLanguage(language, section, department, builder);
       return restTemplate.exchange(
           builder.toUriString(),
           HttpMethod.GET,
@@ -79,12 +75,11 @@ public abstract class AbstractBaseEntityRestTemplate<E> implements BaseEntityRes
 
   @Override
   public ResponseEntity<List<E>> findAll(
-      String language, String url, String section, String department) {
+      String language, String url, String section, String department, int idCustomer) {
     if (url.equals("/news/client"))
       return new ResponseEntity<>(HttpStatus.HTTP_VERSION_NOT_SUPPORTED);
     try {
       UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_SERVER + url + "/all");
-      setSectionAndDeportamentAndLanguage(language, section, department, builder);
       return restTemplate.exchange(
           builder.toUriString(),
           HttpMethod.GET,
@@ -98,12 +93,5 @@ public abstract class AbstractBaseEntityRestTemplate<E> implements BaseEntityRes
       log.error(exception.getStackTrace());
       return new ResponseEntity<>(HttpStatus.valueOf(exception.getStatusCode().value()));
     }
-  }
-
-  private void setSectionAndDeportamentAndLanguage(
-      String language, String section, String department, UriComponentsBuilder builder) {
-    if (language != null) builder.queryParam(LANGUAGE, language);
-    if (section != null) builder.queryParam(SECTION, section);
-    if (department != null) builder.queryParam(DEPARTAMENT, department);
   }
 }

@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public interface NewsRestTemplate extends BaseEntityRestTemplate<News> {
 
-    ResponseEntity<CustomPage<News>> findByIdProject(long project, int page, int size, String sort);
+  ResponseEntity<CustomPage<News>> findByIdProject(
+      long project, int page, int size, String sort, long customer);
 
-    ResponseEntity<List<News>> findByIdProject(long project);
+  ResponseEntity<List<News>> findByIdProject(long project, long customer);
 }

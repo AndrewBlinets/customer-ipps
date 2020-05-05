@@ -6,7 +6,7 @@ import by.ipps.ippsclients.custom.CustomPage;
 import by.ipps.ippsclients.entity.News;
 import by.ipps.ippsclients.resttemplate.NewsRestTemplate;
 import java.util.List;
-import org.springframework.http.HttpStatus;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,13 +33,14 @@ public class NewsController extends BaseEntityAbstractController<News, NewsRestT
       @RequestParam(value = "page", required = false, defaultValue = "0") int page,
       @RequestParam(value = "size", required = false, defaultValue = "10") int size,
       @RequestParam(value = "sort", required = false) String sort,
-      @PathVariable long project) {
-    return baseEntityRestTemplate.findByIdProject(project, page, size, sort);
+      @PathVariable long project,
+      HttpServletRequest request) {
+    return baseEntityRestTemplate.findByIdProject(project, page, size, sort, this.getInfoFromToken(request));
   }
 
   @GetMapping("/byIdProject/{project}")
   @ResponseBody
-  public ResponseEntity<List<News>> getNewsByProiject(@PathVariable long project) {
-    return baseEntityRestTemplate.findByIdProject(project);
+  public ResponseEntity<List<News>> getNewsByProiject(@PathVariable long project, HttpServletRequest request) {
+    return baseEntityRestTemplate.findByIdProject(project, this.getInfoFromToken(request));
   }
 }
