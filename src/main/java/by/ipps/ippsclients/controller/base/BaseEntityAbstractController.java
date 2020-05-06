@@ -11,21 +11,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 
 public abstract class BaseEntityAbstractController<
-        T extends BaseEntity, S extends BaseEntityRestTemplate<T>>
+        T extends BaseEntity, S extends BaseEntityRestTemplate<T>> extends BaseInfoForController
     implements BaseEntityController<T> {
 
   protected final S baseEntityRestTemplate;
   protected String url;
   protected String sortDefault;
-
-  @Value("${prefiks}")
-  private String prefiks;
-
-  @Value("${headre}")
-  private String headre;
-
-  @Value("${jwt.secret}")
-  private String secretKey;
 
   protected BaseEntityAbstractController(S s, String url, String sortDefault) {
     this.baseEntityRestTemplate = s;
@@ -69,12 +60,5 @@ public abstract class BaseEntityAbstractController<
       String language, String section, String department, HttpServletRequest httpServletRequest) {
     return baseEntityRestTemplate.findAll(
         language, url, section, department, getInfoFromToken(httpServletRequest));
-  }
-
-  protected int getInfoFromToken(HttpServletRequest request) {
-    String jwtToken = request.getHeader(headre).replace(prefiks, "");
-    Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken).getBody();
-    int id = (Integer) (claims.get("id"));
-    return id;
   }
 }

@@ -22,7 +22,8 @@ public class ProjectRestTemplateImp extends AbstractBaseEntityRestTemplate<Proje
       Long id, String url, String language, String section, String department, int idCustomer) {
     try {
       UriComponentsBuilder builder =
-          UriComponentsBuilder.fromHttpUrl(URL_SERVER + "project/projectForCustomerById/" + idCustomer + "/" + id);
+          UriComponentsBuilder.fromHttpUrl(
+              urlServer + "project/projectForCustomerById/" + idCustomer + "/" + id);
       return restTemplate.exchange(
           builder.toUriString(),
           HttpMethod.GET,
@@ -55,7 +56,8 @@ public class ProjectRestTemplateImp extends AbstractBaseEntityRestTemplate<Proje
   public ResponseEntity<List<Project>> findAll(
       String language, String url, String section, String department, int idCustomer) {
       try {
-          UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_SERVER + url + "/projectForCustomerByIdCustomer/" + idCustomer);
+          UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+              urlServer + url + "/projectForCustomerByIdCustomer/" + idCustomer);
           return restTemplate.exchange(
               builder.toUriString(),
               HttpMethod.GET,
