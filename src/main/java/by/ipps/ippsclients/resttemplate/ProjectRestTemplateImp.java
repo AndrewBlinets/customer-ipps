@@ -58,11 +58,12 @@ public class ProjectRestTemplateImp extends AbstractBaseEntityRestTemplate<Proje
       try {
           UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
               urlServer + url + "/projectForCustomerByIdCustomer/" + idCustomer);
-          return restTemplate.exchange(
+          ResponseEntity<List<Project>> a =  restTemplate.exchange(
               builder.toUriString(),
               HttpMethod.GET,
               null,
               new ParameterizedTypeReference<List<Project>>() {});
+          return a;
       } catch (org.springframework.web.client.HttpClientErrorException exception) {
           log.info("findAll");
           log.info(url);

@@ -2,12 +2,15 @@ package by.ipps.ippsclients.entity;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Project extends BaseEntity implements Serializable {
-  private String shortTitle;
+  private String title;
   private List<CustomerForProject> customers;
+  private boolean favorites;
 }
