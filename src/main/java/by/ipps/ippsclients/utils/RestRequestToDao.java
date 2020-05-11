@@ -15,7 +15,7 @@ public class RestRequestToDao {
   public CustomerAuth getUserByLogin(String login) {
     RestTemplate restTemplate = new RestTemplate();
     ResponseEntity<CustomerAuth> response =
-            restTemplate.postForEntity(URL_SERVER + "customer/authenticate", login, CustomerAuth.class);
+        restTemplate.postForEntity(URL_SERVER + "customer/authenticate", login, CustomerAuth.class);
     return response.getBody();
   }
 }

@@ -1,10 +1,16 @@
 package by.ipps.ippsclients.utils;
 
-import by.ipps.ippsclients.entity.Customer;
 import by.ipps.ippsclients.entity.CustomerAuth;
-import by.ipps.ippsclients.resttemplate.CustomerRestTemplate;
 import by.ipps.ippsclients.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,23 +22,13 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
   private final JwtUserDetailsService jwtUserDetailsService;
   private final JwtTokenUtil jwtTokenUtil;
   private final RestRequestToDao requestToDao;
-  @Autowired
-  private AuthenticationManager authenticationManager;
+  @Autowired private AuthenticationManager authenticationManager;
 
   public JwtRequestFilter(
       JwtUserDetailsService jwtUserDetailsService,
@@ -45,7 +41,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(
-          HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+      HttpServletRequest request, HttpServletResponse response, FilterChain chain)
       throws ServletException, IOException {
     final String requestTokenHeader = request.getHeader("Authorization");
     System.out.println(requestTokenHeader);
@@ -99,10 +95,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
   private List<String> getPrivileges(List<String> roles) {
     List<String> privileges = new ArrayList<>();
-    if(roles != null)
+    if (roles != null)
       for (String role : roles) {
-      privileges.add(role);
-    }
+        privileges.add(role);
+      }
     return privileges;
   }
 

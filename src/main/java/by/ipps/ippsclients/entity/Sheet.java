@@ -1,5 +1,3 @@
 package by.ipps.ippsclients.entity;
 
-
-public class Sheet extends BaseEntity {
-}
+public class Sheet extends BaseEntity {}

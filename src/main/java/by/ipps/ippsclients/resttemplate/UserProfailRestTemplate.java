@@ -1,7 +1,5 @@
 package by.ipps.ippsclients.resttemplate;
 
-import by.ipps.ippsclients.entity.FavoriteProject;
-import by.ipps.ippsclients.entity.Project;
 import by.ipps.ippsclients.entity.UserProfail;
 import by.ipps.ippsclients.resttemplate.base.BaseInfoForRest;
 import java.util.Collections;
@@ -24,8 +22,7 @@ public class UserProfailRestTemplate extends BaseInfoForRest {
   }
 
   public ResponseEntity<String> saveChange(UserProfail userProfail) {
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromHttpUrl(this.urlServer + URL);
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(this.urlServer + URL);
     HttpHeaders requestHeaders = new HttpHeaders();
     requestHeaders.setContentType(MediaType.APPLICATION_JSON);
     requestHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));

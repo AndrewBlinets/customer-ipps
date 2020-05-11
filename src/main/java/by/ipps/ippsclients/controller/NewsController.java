@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class NewsController extends BaseEntityAbstractController<News, NewsRestTemplate>
     implements BaseEntityController<News> {
 
-  protected NewsController(
-      NewsRestTemplate newsRestTemplate) {
+  protected NewsController(NewsRestTemplate newsRestTemplate) {
     super(newsRestTemplate, "/news", "id");
   }
 
@@ -35,12 +34,14 @@ public class NewsController extends BaseEntityAbstractController<News, NewsRestT
       @RequestParam(value = "sort", required = false) String sort,
       @PathVariable long project,
       HttpServletRequest request) {
-    return baseEntityRestTemplate.findByIdProject(project, page, size, sort, this.getInfoFromToken(request));
+    return baseEntityRestTemplate.findByIdProject(
+        project, page, size, sort, this.getInfoFromToken(request));
   }
 
   @GetMapping("/byIdProject/{project}")
   @ResponseBody
-  public ResponseEntity<List<News>> getNewsByProiject(@PathVariable long project, HttpServletRequest request) {
+  public ResponseEntity<List<News>> getNewsByProiject(
+      @PathVariable long project, HttpServletRequest request) {
     return baseEntityRestTemplate.findByIdProject(project, this.getInfoFromToken(request));
   }
 }

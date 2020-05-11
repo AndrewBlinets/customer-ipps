@@ -8,13 +8,12 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class IppsClientsApplication extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
-        SpringApplication.run(IppsClientsApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(IppsClientsApplication.class, args);
+  }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(IppsClientsApplication.class);
-    }
-
+  @Override
+  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+    return builder.sources(IppsClientsApplication.class);
+  }
 }

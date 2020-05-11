@@ -5,6 +5,4 @@ import by.ipps.ippsclients.resttemplate.base.BaseEntityRestTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface ProjectRestTemplate extends BaseEntityRestTemplate<Project> {
-
-}
+public interface ProjectRestTemplate extends BaseEntityRestTemplate<Project> {}

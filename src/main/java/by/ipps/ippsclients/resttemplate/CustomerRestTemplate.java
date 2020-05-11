@@ -7,5 +7,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface CustomerRestTemplate extends BaseEntityRestTemplate<Customer> {
-    ResponseEntity<Customer> getUserByLogin(String login);
+  ResponseEntity<Customer> getUserByLogin(String login);
 }

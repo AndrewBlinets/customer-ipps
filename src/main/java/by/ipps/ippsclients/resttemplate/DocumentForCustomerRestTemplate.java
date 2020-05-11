@@ -8,14 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface DocumentForCustomerRestTemplate extends BaseEntityRestTemplate<DocumentForCustomer> {
+public interface DocumentForCustomerRestTemplate
+    extends BaseEntityRestTemplate<DocumentForCustomer> {
 
-  ResponseEntity<CustomPage<DocumentForCustomer>> findPagingRecordsByProject(int page, int size, String s, String url, int infoFromToken, long project);
+  ResponseEntity<CustomPage<DocumentForCustomer>> findPagingRecordsByProject(
+      int page, int size, String s, String url, int infoFromToken, long project);
 
-  ResponseEntity<List<DocumentForCustomer>> findAllByProject(String url, int infoFromToken, long project);
+  ResponseEntity<List<DocumentForCustomer>> findAllByProject(
+      String url, int infoFromToken, long project);
 
-  ResponseEntity<CustomPage<DocumentForCustomer>> findPagingRecordsBySheet(int page, int size, String s, String url, int infoFromToken, long sheet);
+  ResponseEntity<CustomPage<DocumentForCustomer>> findPagingRecordsBySheet(
+      int page, int size, String s, String url, int infoFromToken, long sheet);
 
-  ResponseEntity<List<DocumentForCustomer>> findAllBySheet(String url, int infoFromToken, long sheet);
-
+  ResponseEntity<List<DocumentForCustomer>> findAllBySheet(
+      String url, int infoFromToken, long sheet);
 }

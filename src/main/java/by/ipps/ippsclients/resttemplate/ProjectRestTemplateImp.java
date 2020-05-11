@@ -23,8 +23,7 @@ public class ProjectRestTemplateImp extends AbstractBaseEntityRestTemplate<Proje
   }
 
   @Override
-  public ResponseEntity<Project> findById(
-      Long id, String url, int idCustomer) {
+  public ResponseEntity<Project> findById(Long id, String url, int idCustomer) {
     try {
       UriComponentsBuilder builder =
           UriComponentsBuilder.fromHttpUrl(
@@ -45,31 +44,29 @@ public class ProjectRestTemplateImp extends AbstractBaseEntityRestTemplate<Proje
 
   @Override
   public ResponseEntity<CustomPage<Project>> findPagingRecords(
-      long page,
-      int size,
-      String sort,
-      String url,
-      int idCustomer) {
+      long page, int size, String sort, String url, int idCustomer) {
     return new ResponseEntity<>(HttpStatus.HTTP_VERSION_NOT_SUPPORTED);
   }
 
   @Override
   public ResponseEntity<List<Project>> findAll(String url, int idCustomer) {
-      try {
-          UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+    try {
+      UriComponentsBuilder builder =
+          UriComponentsBuilder.fromHttpUrl(
               urlServer + url + "/projectForCustomerByIdCustomer/" + idCustomer);
-          ResponseEntity<List<Project>> a =  restTemplate.exchange(
+      ResponseEntity<List<Project>> a =
+          restTemplate.exchange(
               builder.toUriString(),
               HttpMethod.GET,
               null,
               new ParameterizedTypeReference<List<Project>>() {});
-          return a;
-      } catch (org.springframework.web.client.HttpClientErrorException exception) {
-          log.info("findAll");
-          log.info(url);
-          log.error(exception.getStatusCode() + " " + exception.getStatusText());
-          log.error(exception.getStackTrace());
-          return new ResponseEntity<>(HttpStatus.valueOf(exception.getStatusCode().value()));
-      }
+      return a;
+    } catch (org.springframework.web.client.HttpClientErrorException exception) {
+      log.info("findAll");
+      log.info(url);
+      log.error(exception.getStatusCode() + " " + exception.getStatusText());
+      log.error(exception.getStackTrace());
+      return new ResponseEntity<>(HttpStatus.valueOf(exception.getStatusCode().value()));
+    }
   }
 }

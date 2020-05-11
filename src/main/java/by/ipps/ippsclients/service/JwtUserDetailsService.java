@@ -1,19 +1,16 @@
 package by.ipps.ippsclients.service;
 
-import by.ipps.ippsclients.entity.Customer;
 import by.ipps.ippsclients.entity.CustomerAuth;
-import by.ipps.ippsclients.resttemplate.CustomerRestTemplate;
 import by.ipps.ippsclients.utils.RestRequestToDao;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
@@ -44,10 +41,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 
   private List<String> getPrivileges(List<String> roles) {
     List<String> privileges = new ArrayList<>();
-    if(roles != null)
+    if (roles != null)
       for (String role : roles) {
-      privileges.add(role);
-    }
+        privileges.add(role);
+      }
     return privileges;
   }
 

@@ -30,10 +30,12 @@ public class FavoritesProjectRestTemplate extends BaseInfoForRest {
   public ResponseEntity<List<Project>> getFavoritProjectByIdCustomer(int idCustomer) {
     try {
       UriComponentsBuilder builder =
-          UriComponentsBuilder.fromHttpUrl(this.urlServer + URL)
-              .queryParam("customer", idCustomer);
+          UriComponentsBuilder.fromHttpUrl(this.urlServer + URL).queryParam("customer", idCustomer);
       return this.restTemplate.exchange(
-          builder.toUriString(), HttpMethod.GET, null, new ParameterizedTypeReference<List<Project>>() {});
+          builder.toUriString(),
+          HttpMethod.GET,
+          null,
+          new ParameterizedTypeReference<List<Project>>() {});
     } catch (org.springframework.web.client.HttpClientErrorException exception) {
       log.info("findByid");
       log.error(exception.getStatusCode() + " " + exception.getStatusText());
@@ -43,8 +45,7 @@ public class FavoritesProjectRestTemplate extends BaseInfoForRest {
   }
 
   public ResponseEntity<Project> addFavoriteProject(FavoriteProject favoriteProject) {
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromHttpUrl(this.urlServer + URL);
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(this.urlServer + URL);
     HttpHeaders requestHeaders = new HttpHeaders();
     requestHeaders.setContentType(MediaType.APPLICATION_JSON);
     requestHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));

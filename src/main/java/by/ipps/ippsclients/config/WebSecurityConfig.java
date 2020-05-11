@@ -22,12 +22,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-  @Autowired
-  private UserDetailsService jwtUserDetailsService;
-  @Autowired
-  private JwtRequestFilter jwtRequestFilter;
+  @Autowired private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+  @Autowired private UserDetailsService jwtUserDetailsService;
+  @Autowired private JwtRequestFilter jwtRequestFilter;
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -62,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/authenticate")
         .permitAll()
-            .antMatchers("/logout")
+        .antMatchers("/logout")
         .permitAll()
         .antMatchers("/getInfo")
         .permitAll()
