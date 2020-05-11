@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
@@ -17,9 +18,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class ProjectRestTemplateImp extends AbstractBaseEntityRestTemplate<Project>
     implements ProjectRestTemplate {
 
+  public ProjectRestTemplateImp(RestTemplate restTemplate) {
+    super(restTemplate);
+  }
+
   @Override
   public ResponseEntity<Project> findById(
-      Long id, String url, String language, String section, String department, int idCustomer) {
+      Long id, String url, int idCustomer) {
     try {
       UriComponentsBuilder builder =
           UriComponentsBuilder.fromHttpUrl(
@@ -32,7 +37,6 @@ public class ProjectRestTemplateImp extends AbstractBaseEntityRestTemplate<Proje
     } catch (org.springframework.web.client.HttpClientErrorException exception) {
       log.info("findByid");
       log.info(url + "/" + id);
-      log.info(language + ", " + section + ", " + department);
       log.error(exception.getStatusCode() + " " + exception.getStatusText());
       log.error(exception.getStackTrace());
       return new ResponseEntity<>(HttpStatus.valueOf(exception.getStatusCode().value()));
@@ -44,17 +48,13 @@ public class ProjectRestTemplateImp extends AbstractBaseEntityRestTemplate<Proje
       long page,
       int size,
       String sort,
-      String language,
       String url,
-      String section,
-      String department,
       int idCustomer) {
     return new ResponseEntity<>(HttpStatus.HTTP_VERSION_NOT_SUPPORTED);
   }
 
   @Override
-  public ResponseEntity<List<Project>> findAll(
-      String language, String url, String section, String department, int idCustomer) {
+  public ResponseEntity<List<Project>> findAll(String url, int idCustomer) {
       try {
           UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
               urlServer + url + "/projectForCustomerByIdCustomer/" + idCustomer);
@@ -66,7 +66,6 @@ public class ProjectRestTemplateImp extends AbstractBaseEntityRestTemplate<Proje
       } catch (org.springframework.web.client.HttpClientErrorException exception) {
           log.info("findAll");
           log.info(url);
-          log.info(language + ", " + section + ", " + department);
           log.error(exception.getStatusCode() + " " + exception.getStatusText());
           log.error(exception.getStackTrace());
           return new ResponseEntity<>(HttpStatus.valueOf(exception.getStatusCode().value()));

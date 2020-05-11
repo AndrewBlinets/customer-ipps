@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
@@ -21,6 +22,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class FavoritesProjectRestTemplate extends BaseInfoForRest {
 
   private static final String URL = "customer/favoriteProject";
+
+  public FavoritesProjectRestTemplate(RestTemplate restTemplate) {
+    super(restTemplate);
+  }
 
   public ResponseEntity<List<Project>> getFavoritProjectByIdCustomer(int idCustomer) {
     try {

@@ -7,15 +7,19 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Log4j2
 public abstract class AbstractBaseEntityRestTemplate<E> extends BaseInfoForRest
     implements BaseEntityRestTemplate<E> {
 
+  public AbstractBaseEntityRestTemplate(RestTemplate restTemplate) {
+    super(restTemplate);
+  }
+
   @Override
-  public ResponseEntity<E> findById(
-      Long id, String url, String language, String section, String department, int idCustomer) {
+  public ResponseEntity<E> findById(Long id, String url, int idCustomer) {
     try {
       UriComponentsBuilder builder =
           UriComponentsBuilder.fromHttpUrl(urlServer + url + "/" + id)
@@ -25,7 +29,6 @@ public abstract class AbstractBaseEntityRestTemplate<E> extends BaseInfoForRest
     } catch (org.springframework.web.client.HttpClientErrorException exception) {
       log.info("findByid");
       log.info(url + "/" + id);
-      log.info(language + ", " + section + ", " + department);
       log.error(exception.getStatusCode() + " " + exception.getStatusText());
       log.error(exception.getStackTrace());
       return new ResponseEntity<>(HttpStatus.valueOf(exception.getStatusCode().value()));
@@ -34,14 +37,7 @@ public abstract class AbstractBaseEntityRestTemplate<E> extends BaseInfoForRest
 
   @Override
   public ResponseEntity<CustomPage<E>> findPagingRecords(
-      long page,
-      int size,
-      String sort,
-      String language,
-      String url,
-      String section,
-      String department,
-      int idCustomer) {
+      long page, int size, String sort, String url, int idCustomer) {
     try {
       UriComponentsBuilder builder =
           UriComponentsBuilder.fromHttpUrl(urlServer + url)
@@ -57,7 +53,6 @@ public abstract class AbstractBaseEntityRestTemplate<E> extends BaseInfoForRest
     } catch (org.springframework.web.client.HttpClientErrorException exception) {
       log.info("findAlByPage");
       log.info(url);
-      log.info(language + ", " + section + ", " + department);
       log.error(exception.getStatusCode() + " " + exception.getStatusText());
       log.error(exception.getStackTrace());
       return new ResponseEntity<>(HttpStatus.valueOf(exception.getStatusCode().value()));
@@ -65,8 +60,7 @@ public abstract class AbstractBaseEntityRestTemplate<E> extends BaseInfoForRest
   }
 
   @Override
-  public ResponseEntity<List<E>> findAll(
-      String language, String url, String section, String department, int idCustomer) {
+  public ResponseEntity<List<E>> findAll(String url, int idCustomer) {
     if (url.equals("/news/client"))
       return new ResponseEntity<>(HttpStatus.HTTP_VERSION_NOT_SUPPORTED);
     try {
@@ -80,7 +74,6 @@ public abstract class AbstractBaseEntityRestTemplate<E> extends BaseInfoForRest
     } catch (org.springframework.web.client.HttpClientErrorException exception) {
       log.info("findAll");
       log.info(url);
-      log.info(language + ", " + section + ", " + department);
       log.error(exception.getStatusCode() + " " + exception.getStatusText());
       log.error(exception.getStackTrace());
       return new ResponseEntity<>(HttpStatus.valueOf(exception.getStatusCode().value()));

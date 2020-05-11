@@ -13,28 +13,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public interface BaseEntityController<T extends BaseEntity> {
 
   @GetMapping(value = "/{id}")
-  ResponseEntity<T> getById(
-      @PathVariable Long id,
-      @RequestParam(value = "language", required = false) String language,
-      @RequestParam(value = "pageId", required = false) String section,
-      @RequestParam(value = "Department", required = false) String department,
-      HttpServletRequest httpServletRequest);
+  ResponseEntity<T> getById(@PathVariable Long id, HttpServletRequest httpServletRequest);
 
   @GetMapping
   ResponseEntity<CustomPage<T>> getAllByPage(
       @RequestParam(value = "page", required = false, defaultValue = "0") int page,
       @RequestParam(value = "size", required = false, defaultValue = "10") int size,
       @RequestParam(value = "sort", required = false) String sort,
-      @RequestParam(value = "language", required = false) String language,
-      @RequestParam(value = "pageId", required = false) String section,
-      @RequestParam(value = "Department", required = false) String department,
       HttpServletRequest httpServletRequest);
 
   @GetMapping(value = "/all")
   @ResponseBody
-  ResponseEntity<List<T>> getAll(
-      @RequestParam(value = "language", required = false) String language,
-      @RequestParam(value = "pageId", required = false) String section,
-      @RequestParam(value = "Department", required = false) String department,
-      HttpServletRequest httpServletRequest);
+  ResponseEntity<List<T>> getAll(HttpServletRequest httpServletRequest);
 }

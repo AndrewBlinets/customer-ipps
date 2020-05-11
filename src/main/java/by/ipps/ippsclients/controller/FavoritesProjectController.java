@@ -24,8 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class FavoritesProjectController extends BaseInfoForController {
 
-  @Autowired
-  private FavoritesProjectRestTemplate restTemplate;
+   private final FavoritesProjectRestTemplate restTemplate;
+
+  public FavoritesProjectController(
+      FavoritesProjectRestTemplate restTemplate) {
+    this.restTemplate = restTemplate;
+  }
 
   @GetMapping
   @ResponseBody
