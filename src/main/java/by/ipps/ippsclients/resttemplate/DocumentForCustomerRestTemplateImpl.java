@@ -67,10 +67,10 @@ public class DocumentForCustomerRestTemplateImpl
 
   @Override
   public ResponseEntity<CustomPage<DocumentForCustomer>> findPagingRecordsByProject(
-      int page, int size, String sort, String url, int infoFromToken, long project) {
+      int page, int size, String sort, String url, int idCustomer, long project) {
     try {
       UriComponentsBuilder builder =
-          UriComponentsBuilder.fromHttpUrl(urlServer + url + project)
+          UriComponentsBuilder.fromHttpUrl(urlServer + url + idCustomer + "/" + project)
               .queryParam("page", String.valueOf(page))
               .queryParam("size", String.valueOf(size))
               .queryParam("sort", sort);
@@ -90,9 +90,9 @@ public class DocumentForCustomerRestTemplateImpl
 
   @Override
   public ResponseEntity<List<DocumentForCustomer>> findAllByProject(
-      String url, int infoFromToken, long project) {
+      String url, int idCustomer, long project) {
     try {
-      UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlServer + url + project);
+      UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlServer + url + idCustomer + "/" + project);
       return restTemplate.exchange(
           builder.toUriString(),
           HttpMethod.GET,
@@ -109,10 +109,10 @@ public class DocumentForCustomerRestTemplateImpl
 
   @Override
   public ResponseEntity<CustomPage<DocumentForCustomer>> findPagingRecordsBySheet(
-      int page, int size, String sort, String url, int infoFromToken, long sheet) {
+      int page, int size, String sort, String url, int idCustomer, long sheet) {
     try {
       UriComponentsBuilder builder =
-          UriComponentsBuilder.fromHttpUrl(urlServer + url + sheet)
+          UriComponentsBuilder.fromHttpUrl(urlServer + url + idCustomer + "/" + sheet)
               .queryParam("page", String.valueOf(page))
               .queryParam("size", String.valueOf(size))
               .queryParam("sort", sort);
@@ -132,9 +132,9 @@ public class DocumentForCustomerRestTemplateImpl
 
   @Override
   public ResponseEntity<List<DocumentForCustomer>> findAllBySheet(
-      String url, int infoFromToken, long sheet) {
+      String url, int idCustomer, long sheet) {
     try {
-      UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlServer + url + sheet);
+      UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlServer + url + idCustomer + "/" + sheet);
       return restTemplate.exchange(
           builder.toUriString(),
           HttpMethod.GET,

@@ -42,10 +42,11 @@ public class DocumentForCustomerController
   public void getFile(
       @PathVariable long id, HttpServletResponse response, HttpServletRequest httpServletRequest)
       throws IOException {
-    DocumentForCustomer documentForCustomer =
+    ResponseEntity<DocumentForCustomer> documentForCustomerR =
         this.baseEntityRestTemplate
-            .findById(id, this.url, this.getInfoFromToken(httpServletRequest))
-            .getBody();
+            .findById(id, this.url, this.getInfoFromToken(httpServletRequest));
+
+    DocumentForCustomer documentForCustomer = documentForCustomerR.getBody();
     response.setContentType(Objects.requireNonNull(documentForCustomer).getMimeType());
     response.setHeader(
         "Content-Disposition",
@@ -78,7 +79,7 @@ public class DocumentForCustomerController
         url + "/byProject/", getInfoFromToken(httpServletRequest), project);
   }
 
-  @GetMapping("/bySheet/{customer}/{sheet}")
+  @GetMapping("/bySheet/{sheet}")
   @ResponseBody
   public ResponseEntity<CustomPage<DocumentForCustomer>> getPageByIdSheet(
       @RequestParam(value = "page", required = false, defaultValue = "0") int page,
